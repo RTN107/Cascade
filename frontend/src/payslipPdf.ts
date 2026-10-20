@@ -7,8 +7,10 @@ const INK_MUTED = '#8a8381'
 const ACCENT = '#73293A'
 const RULE = '#d8d3cd'
 
+// matches the en-IN grouping format.ts uses on screen, so a figure never prints
+// differently in the PDF than it does in the app
 function fmt(amount: number) {
-  return money(amount).toLocaleString('en-US')
+  return money(amount).toLocaleString('en-IN')
 }
 
 function buildPayslipPdf(
