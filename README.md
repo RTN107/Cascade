@@ -114,6 +114,11 @@ migration in `backend/internal/db/migrations` on startup, so there is never a se
 step to remember) and `web` (the Vite dev server). The first run builds the Go binary and
 installs frontend dependencies, so it takes longer than later runs.
 
+The frontend's host port, 5173, is fixed in `docker-compose.yml` and is not read from `.env`
+the way `API_PORT` is. If you already have another copy of this project running, or anything
+else on 5173, `docker compose up` fails with a port-in-use error; stop the other one first, or
+change the `5173:5173` line in `docker-compose.yml`.
+
 ### 3.4 Create your company
 
 Open http://localhost:5173. With no employees in the database yet, the app shows a setup
