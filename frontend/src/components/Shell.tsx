@@ -43,7 +43,7 @@ function ChevronIcon({ flipped }: { flipped: boolean }) {
 function useCollapsed() {
   const [collapsed, setCollapsed] = useState(() => {
     try {
-      return localStorage.getItem('cascade-rail-collapsed') === '1'
+      return localStorage.getItem('rail-collapsed') === '1'
     } catch {
       return false
     }
@@ -51,7 +51,7 @@ function useCollapsed() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('cascade-rail-collapsed', collapsed ? '1' : '0')
+      localStorage.setItem('rail-collapsed', collapsed ? '1' : '0')
     } catch {
       // ignore: this is just a remembered preference, not critical state
     }
