@@ -214,6 +214,12 @@ Provident Fund contribution, a bonus, insurance, from the Pay components tab, th
 employee's amount for it in Salary structure. A component can be removed later without changing
 any payslip already generated; past payslips keep their own copy of the name and amount.
 
+The name "Basic Pay" itself is seeded once by `backend/internal/db/migrations/0006_unify_salary.sql`,
+not created through the UI, because exactly one component must be flagged `is_base` and the app
+never exposes a way to set that flag. Renaming it to whatever your own payroll calls it, Base
+Salary, Gaji Pokok, whatever the term is, means either editing that migration before the first
+run, or running `UPDATE salary_components SET name = '...' WHERE is_base` yourself afterward.
+
 <p align="center">
   <img src="docs/screenshots/pay-components.png" alt="Cascade's Pay components tab: Basic Pay required for every employee, and Employee's Contribution to Provident Fund as a removable deduction" width="820" />
   <img src="docs/screenshots/salary-structure.png" alt="Cascade's Salary structure tab for Ishaan Kapoor: Basic Pay 33000, Employee's Contribution to Provident Fund 3960, net pay 29040 before any Loss of Pay" width="820" />
@@ -250,8 +256,19 @@ the app, never in code.
 `frontend/src/components/Logo.tsx` and the colour variables in `frontend/src/App.css` are the
 whole visual identity: one maroon mark, one serif display face (Zilla Slab) paired with a sans
 body face (IBM Plex Sans), both loaded from Google Fonts in `frontend/index.html`. Change the
-name in `index.html`'s `<title>`, the mark in `Logo.tsx`, and the colour variables, and nothing
-else in the app assumes the name Cascade.
+name in `index.html`'s `<title>`, the mark in `Logo.tsx`, and the colour variables; nothing in
+the UI reads the word Cascade back out of an API response or a database row. The one place the
+name used to leak past that was a `localStorage` key the collapsed-sidebar preference was saved
+under, which is now just `rail-collapsed`, not tied to the product name.
+
+### 5.6 Currency
+
+Every amount in the app is Indian Rupees: `frontend/src/format.ts` prints the `₹` sign with
+Indian digit grouping (lakhs and crores, `3,63,440` rather than `363,440`), and
+`frontend/src/payslipPdf.ts` formats the generated PDF the same way so a figure never reads
+differently on screen than it does in the download. Neither is a setting; both are two lines
+in each file, written for a reader who expects INR. Change the symbol and the locale string in
+both places for your own currency, together, so the two stay consistent with each other.
 
 ---
 
