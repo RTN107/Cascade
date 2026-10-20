@@ -1,0 +1,75 @@
+:root {
+  /* the whole palette: three colors, nothing else */
+  --bg: #f2f0eb;
+  --ink: #221e20;
+  --accent: #73293a;
+
+  /* derived, not new colors: tints/shades of the two above, used for structure and state */
+  --ink-05: rgba(34, 30, 32, 0.05);
+  --ink-10: rgba(34, 30, 32, 0.1);
+  --ink-20: rgba(34, 30, 32, 0.2);
+  --ink-40: rgba(34, 30, 32, 0.4);
+  --ink-60: rgba(34, 30, 32, 0.6);
+  --accent-10: rgba(115, 41, 58, 0.1);
+  --accent-20: rgba(115, 41, 58, 0.2);
+  --accent-60: rgba(115, 41, 58, 0.6);
+  --surface: #faf9f6;
+
+  --font-display: 'Zilla Slab', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --radius: 6px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  color-scheme: light;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
